@@ -22,11 +22,11 @@ public class BestChoiceApplication {
     public List<Driver> sortBestDrivers(Double lat, Double lng, List<Driver> drivers) {
 
         // cria lista com a heuristica para escolha do melhor motorista
-        // leva em consideração a menor distancia percorrida na rua como heuristica
+        // leva em consideração o menor tempo de chegada ou a menor distancia percorrida
         LinkedList<BestChoiceHeuristic> heuristics = createHeuristicList(lat, lng, drivers);
 
         // ordena a lista de heuristicas
-        // a menor heuritica primeiro (menor distancia)
+        // a menor heuritica primeiro (menor tempo ou menor distancia)
         Collections.sort(heuristics);
 
         // cria uma lista de motoristas ordenada conforme a heuristica de cada um
