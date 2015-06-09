@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ecoder.taxis.exception.InternalServerErrorException;
 import br.com.ecoder.taxis.model.Driver;
 import br.com.ecoder.taxis.repository.GoogleMapsRepository;
 
@@ -55,7 +54,11 @@ public class BestChoiceApplication {
             // Tenta calcular tempo de chegada usando API do google
             heuristic = getArriveTime(lat, lng, driver);
 
-        } catch (InternalServerErrorException ex) {
+            if (heuristic == 0L) {
+                heuristic = getDistance(lat, lng, driver);
+            }
+
+        } catch (Exception ex) {
 
             // Calcula distancia entre o centro e o driver
             heuristic = getDistance(lat, lng, driver);
@@ -67,7 +70,12 @@ public class BestChoiceApplication {
     private long getArriveTime(Double lat, Double lng, Driver driver) {
 
         DistanceMatrixElement distance = googlemaps.distance(driver.getLatitude(), driver.getLongitude(), lat, lng);
-        return distance.duration.inSeconds;
+
+        if (distance != null && distance.duration != null) {
+            return distance.duration.inSeconds;
+        } else {
+            return 0L;
+        }
     }
 
     private long getDistance(Double lat, Double lng, Driver driver) {

@@ -67,6 +67,19 @@ public class BestChoiceApplicationTest {
     }
 
     @Test
+    public void shouldSortDriversByDistanceNullDuration() {
+
+        Mockito.when(googlemaps.distance(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyDouble())).thenReturn(null);
+
+        List<Driver> result = application.sortBestDrivers(11.0, 11.0, drivers);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(new Long(2L), result.get(0).getId());
+        Assert.assertEquals(new Long(1L), result.get(1).getId());
+        Assert.assertEquals(new Long(3L), result.get(2).getId());
+    }
+
+    @Test
     public void shouldSortDriversByDistance() {
 
         Mockito.when(googlemaps.distance(Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyDouble())).thenThrow(InternalServerErrorException.class);
