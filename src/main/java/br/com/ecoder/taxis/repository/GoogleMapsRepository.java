@@ -1,7 +1,6 @@
 package br.com.ecoder.taxis.repository;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ecoder.taxis.exception.InternalServerErrorException;
@@ -14,12 +13,8 @@ import com.google.maps.model.DistanceMatrixElement;
 @Service
 public class GoogleMapsRepository {
 
+    @Autowired
     GeoApiContext context;
-
-    @PostConstruct
-    private void initialize() {
-        context = new GeoApiContext().setApiKey(""); // TODO
-    }
 
     public DistanceMatrixElement distance(Double originLat, Double originLng, Double destinationLat, Double destinationLng) {
 
