@@ -16,7 +16,8 @@ public interface DriversRepository extends JpaRepository<Driver, Long> {
     @Query(" SELECT driver " +
            "   FROM Driver driver " +
            "  WHERE driver.latitude  BETWEEN :lat1 AND :lat2 " +
-           "    AND driver.longitude BETWEEN :lng1 AND :lng2")
+           "    AND driver.longitude BETWEEN :lng1 AND :lng2"
+           + "  AND driver.driverAvailable = true")
     public List<Driver> findInArea(
             @Param("lat1") Double lat1, 
             @Param("lng1") Double lng1, 

@@ -33,7 +33,7 @@ public class DriversEndpoint {
 
     // Cria ou atualiza taxista
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createOrUpdate(@Validated @RequestBody DriverCreateRequest driverRequest) {
+    public ResponseEntity<DriverCreateResponse> createOrUpdate(@Validated @RequestBody DriverCreateRequest driverRequest) {
 
         Driver driver = adaptCreateRequestToEntity(driverRequest);
         driver = application.createOrUpdate(driver);
@@ -44,7 +44,7 @@ public class DriversEndpoint {
 
     // Retorna o estado de um taxista.
     @RequestMapping(value = "/{driverId}/status", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getStatus(@PathVariable("driverId") Long driverId) {
+    public ResponseEntity<DriverStatusResponse> getStatus(@PathVariable("driverId") Long driverId) {
 
         Driver driver = application.findById(driverId);
         DriverStatusResponse result = adaptEntityToStatusResponse(driver);
@@ -66,7 +66,7 @@ public class DriversEndpoint {
 
     // Lista os taxistas ativos dentro de uma retângulo geográfico.
     @RequestMapping(value = "/inArea", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findInArea(@RequestParam(value = "sw", required = true) String sw, @RequestParam(value = "ne", required = true) String ne) {
+    public ResponseEntity<List<DriverStatusResponse>> findInArea(@RequestParam(value = "sw", required = true) String sw, @RequestParam(value = "ne", required = true) String ne) {
 
         List<Driver> drivers = application.findInArea(new Area(sw, ne));
         List<DriverStatusResponse> result = adaptEntityToStatusResponse(drivers);
