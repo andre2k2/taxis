@@ -10,7 +10,7 @@ public class GoogleMaps {
 
     @Bean
     public GeoApiContext context() {
-        return new GeoApiContext().setApiKey("");
+        return new GeoApiContext().setApiKey("AIzaSyCkpHAKXT9_Nc4WYy55lvzYIj7dqWPm21U");
     }
 
 }
