@@ -4,15 +4,16 @@ Objetivo
 
 Aplicação desenvolvida para criar/atualizar e buscar motoristas de acordo com a geolocalização do usuário e dos motoristas da área.
 A busca de motoristas será ordenada por relevancia. A relevancia do motorista considera o menor tempo de chegada até o usuário ou a menor distancia.
-O tempo de chegada é obtido através da API Distance Matrix do Google Map.
+O tempo de chegada é obtido através da API Distance Matrix do Google Map. Caso ocorra algum erro na obtenção do tempo de chegada será utilizada a menor distancia entre o usuário e o motorista.
+A distancia é calculada local através do teorema de Pitágoras.
 
 Criar Motorista
 ===============
 
 POST http://146.148.44.89:8080/taxis/drivers
 {
-  "name": "joao",
-  "carPlate": "ZZZ-9090"  
+    "name": "joao",
+    "carPlate": "ZZZ-9090"  
 }
 
 
@@ -21,10 +22,10 @@ Atualizar Posição e Status do Motorista
 
 POST http://146.148.44.89:8080/taxis/drivers/1/status
 {
-  "driverId": "1",
-  "latitude": "30.0",
-  "longitude": "30.0",
-  "driverAvailable": "true"
+    "driverId": "1",
+    "latitude": "30.0",
+    "longitude": "30.0",
+    "driverAvailable": "true"
 }
 
 
